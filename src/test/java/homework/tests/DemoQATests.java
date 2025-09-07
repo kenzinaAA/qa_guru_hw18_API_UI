@@ -19,7 +19,6 @@ public class DemoQATests extends TestBase {
     public void deleteOneOfItemsTest() {
         AuthBodyModel userData = new AuthBodyModel(USERNAME, PASSWORD);
         LoginApi loginApi = new LoginApi();
-        ProfilePage profilePage = new ProfilePage();
 
         BookApi bookApi = new BookApi(testBookIsbn);
         AddBooksBodyModel bookData = new AddBooksBodyModel();
@@ -39,7 +38,6 @@ public class DemoQATests extends TestBase {
 
         step("Проверяем, что книга добавлена в коллекцию", () -> {
             bookApi.booksCheck(bookResponse);
-            //profilePage.checkBookExists("Git Pocket Guide");
         });
 
         step("Удаляем книгу из коллекции через UI", () -> {
