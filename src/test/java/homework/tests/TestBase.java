@@ -22,7 +22,7 @@ public class TestBase {
         RestAssured.baseURI = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         Configuration.browserSize = "1980x1080";
-        Configuration.headless = true;
+        //Configuration.headless = true;
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion","127.0");
         String SELENOID_URL = System.getProperty("selenoid.url");
