@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import homework.ui.DeleteUI;
 
 import static io.qameta.allure.Allure.step;
-import static homework.tests.TestData.PASSWORD;
-import static homework.tests.TestData.USERNAME;
 
 public class DemoQATests extends TestBase {
 
@@ -17,7 +15,7 @@ public class DemoQATests extends TestBase {
 
     @Test
     public void deleteOneOfItemsTest() {
-        AuthBodyModel userData = new AuthBodyModel(USERNAME, PASSWORD);
+        AuthBodyModel userData = new AuthBodyModel(user, password);
         LoginApi loginApi = new LoginApi();
 
         BookApi bookApi = new BookApi(testBookIsbn);
