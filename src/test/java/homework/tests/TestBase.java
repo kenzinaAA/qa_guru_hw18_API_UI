@@ -27,6 +27,7 @@ public class TestBase {
         String SELENOID_URL = System.getProperty("selenoid.url");
         String SELENOID_LOGIN = System.getProperty("selenoid.login");
         String SELENOID_PASSWORD = System.getProperty("selenoid.password");
+        Configuration.holdBrowserOpen = true;
 
         boolean isRemoteRun = SELENOID_URL != null && SELENOID_LOGIN != null && SELENOID_PASSWORD != null;
 
