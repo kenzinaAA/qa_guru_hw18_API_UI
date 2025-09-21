@@ -21,8 +21,7 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         RestAssured.baseURI = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browserSize = "1980x1080";
-        //Configuration.headless = true;
+        Configuration.browserSize = System.getProperty("browserSize","1980x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion","127.0");
         String SELENOID_URL = System.getProperty("selenoid.url");
@@ -49,9 +48,6 @@ public class TestBase {
             System.out.println("Running tests locally");
         }
     }
-        //Configuration.timeout = 10000; // ожидание в мс
-        //System.setProperty("selenide.remote.readTimeout", "120000");
-        //System.setProperty("selenide.remote.connectionTimeout", "60000");
 
     @BeforeEach
     void addListenerAndRuCookie() {
