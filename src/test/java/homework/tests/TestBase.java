@@ -25,18 +25,33 @@ public class TestBase {
         Configuration.headless = true;
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion","127.0");
-        Configuration.remote = "https://user1:1234@" + System.getProperty("selenoid_url","selenoid.autotests.cloud/wd/hub");
-        Configuration.holdBrowserOpen = true;
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-            "enableVNC", true,
-            "enableVideo",true
-        ));
-        Configuration.browserCapabilities = capabilities;
-        Configuration.timeout = 10000; // ожидание в мс
-        System.setProperty("selenide.remote.readTimeout", "120000");
-        System.setProperty("selenide.remote.connectionTimeout", "60000");
+        String SELENOID_URL = System.getProperty("selenoid.url");
+        String SELENOID_LOGIN = System.getProperty("selenoid.login");
+        String SELENOID_PASSWORD = System.getProperty("selenoid.password");
+
+        boolean isRemoteRun = SELENOID_URL != null && SELENOID_LOGIN != null && SELENOID_PASSWORD != null;
+
+        if (isRemoteRun) {
+            Configuration.remote = "https://" + SELENOID_LOGIN + ":" + SELENOID_PASSWORD + "@" + SELENOID_URL + "/wd/hub";
+
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                    "enableVNC", true,
+                    "enableVideo", true,
+                    "videoCodec", "libx264",
+                    "videoFrameRate", 24
+            ));
+            Configuration.browserCapabilities = capabilities;
+
+            System.out.println("Running tests remotely in Selenoid");
+        } else {
+            Configuration.remote = null;
+            System.out.println("Running tests locally");
+        }
     }
+        //Configuration.timeout = 10000; // ожидание в мс
+        //System.setProperty("selenide.remote.readTimeout", "120000");
+        //System.setProperty("selenide.remote.connectionTimeout", "60000");
 
     @BeforeEach
     void addListenerAndRuCookie() {
