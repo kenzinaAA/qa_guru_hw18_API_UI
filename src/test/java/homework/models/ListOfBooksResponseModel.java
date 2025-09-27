@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class GetListOfBooksResponseModel {
+public class ListOfBooksResponseModel {
     String userId, username;
     List<Book> books;
 }

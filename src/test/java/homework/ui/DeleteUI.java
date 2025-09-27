@@ -13,7 +13,7 @@ import static io.qameta.allure.Allure.step;
 public class DeleteUI {
     ProfilePage profilePage = new ProfilePage();
 
-    public void DeleteBookWithUI(AuthResponseModel loginResponse, AuthBodyModel userData, AddBooksResponseModel bookResponse) {
+    public void deleteBookWithUI(AuthResponseModel loginResponse, AuthBodyModel userData, AddBooksResponseModel bookResponse) {
         step("Авторизация через API", () -> {
             open("/favicon.ico");
             getWebDriver().manage().addCookie(new Cookie("userName", loginResponse.getUsername()));
