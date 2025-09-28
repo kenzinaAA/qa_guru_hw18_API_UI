@@ -25,7 +25,7 @@ repositories {
 dependencies {
     testImplementation (
             'io.rest-assured:rest-assured:5.5.2',
-            'io.rest-assured:json-schema-validator:5.5.6',
+            'com.fasterxml.jackson.core:jackson-databind:2.18.2',
             'io.qameta.allure:allure-rest-assured:2.29.1',
             'com.codeborne:selenide:7.9.3',
             'org.junit.jupiter:junit-jupiter:5.10.0',

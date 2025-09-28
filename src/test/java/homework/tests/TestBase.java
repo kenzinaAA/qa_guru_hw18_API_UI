@@ -13,7 +13,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.FileInputStream;
 import java.util.Map;
+import java.util.Properties;
 
 public class TestBase {
 
@@ -27,17 +29,19 @@ public class TestBase {
         RestAssured.defaultParser = Parser.JSON;
         Configuration.pageLoadStrategy = "eager";
         Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("browserVersion", "127.0");
+        Configuration.browserVersion = System.getProperty("browserVersion", "140.0");
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
+        Configuration.remote = System.getProperty("selenoidUrl");
 
-        user = System.getProperty("user");
-        password = System.getProperty("password");
+        //Для локальных запусков читаем данные из properties-файла, который не трекается гитом
+        Properties props = new Properties();
+        try (FileInputStream fis = new FileInputStream("local.properties")) {
+            props.load(fis);
+        } catch (Exception ignored) {
+        }
 
-        String selenoidUser = System.getProperty("selenoidUser");
-        String selenoidPassword = System.getProperty("selenoidPassword");
-        String selenoidUrl = System.getProperty("selenoidUrl", "selenoid.autotests.cloud/wd/hub");
-
-        Configuration.remote = String.format("https://%s:%s@%s", selenoidUser, selenoidPassword, selenoidUrl);
+        user = System.getProperty("user", props.getProperty("user"));
+        password = System.getProperty("password", props.getProperty("password"));
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
